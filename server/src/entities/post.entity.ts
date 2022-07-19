@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 @ObjectType()
@@ -11,9 +20,26 @@ export class Post extends BaseEntity {
 
   @Field({ description: 'post title' })
   @Column({ length: 500 })
-  name: string;
+  title: string;
 
   @Field({ nullable: true })
-  @Column('text')
+  @Column({ type: 'text', nullable: true })
   description: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  thumbnailPath: string;
+
+  @Field((_type) => User)
+  @ManyToOne((_type) => User, (user) => user.posts)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Field()
+  @CreateDateColumn()
+  updatedAt: Date;
 }
