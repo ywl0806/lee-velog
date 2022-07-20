@@ -1,3 +1,5 @@
+import { Post } from 'src/entities/post.entity';
+import { User } from 'src/entities/user.entity';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
@@ -11,7 +13,7 @@ export const databaseProviders = [
         username: 'postgres',
         password: 'postgres',
         database: 'postgres',
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        entities: [Post, User],
         synchronize: true,
       });
 

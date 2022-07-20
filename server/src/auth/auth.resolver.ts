@@ -1,5 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { CredentialsDto } from 'src/user/dto/credentials.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AccessToken } from './types/AccessToken';
@@ -11,9 +12,9 @@ export class AuthResolver {
   @UseGuards(LocalAuthGuard)
   @Mutation(() => AccessToken)
   async login(
-    // @Args('credentials') credentials: CredentialsDto,
-    @Args('username') _: string,
-    @Args('password') __: string,
+    // @Args('userCred') _: CredentialsDto,
+    @Args('password') _: string,
+    @Args('username') __: string,
     @Context() context: any,
   ): Promise<{ access_token: string }> {
     console.log(context.req.user);

@@ -35,6 +35,10 @@ export class Post extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: User;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  userId: number;
+
   @Field()
   @CreateDateColumn()
   createdAt: Date;

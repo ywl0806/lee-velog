@@ -30,4 +30,8 @@ export class User extends BaseEntity {
   @Field((_type) => [Post], { nullable: true })
   @OneToMany((_type) => Post, (post) => post.user)
   posts: Post[];
+
+  @Field({ defaultValue: false })
+  @Column({ default: false })
+  isAdmin: boolean;
 }

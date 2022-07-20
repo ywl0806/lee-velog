@@ -6,14 +6,17 @@ import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { AuthResolver } from './auth.resolver';
 import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule } from '@nestjs/config';
+import { PoliciesGuard } from './guards/policies.guard';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: 'secretKey123',
-      signOptions: { expiresIn: '60s' },
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1200s' },
     }),
   ],
   providers: [AuthService, LocalStrategy, AuthResolver, JwtStrategy],
